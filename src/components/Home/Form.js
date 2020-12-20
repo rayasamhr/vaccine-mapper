@@ -1,13 +1,13 @@
 import React from 'react';
-import MapPage from './MapPage';
+import FormPage from './FormPage';
 import Firebase, { FirebaseContext } from '../Firebase'
- 
-const Map = () => (
-    <React.Fragment>
+
+const Home = () => (
+  <React.Fragment>
     <FirebaseContext.Consumer>
-      {firebase => <MapPage firebaseProp={firebase} />}
+      {firebase => <FormPage firebaseProp={firebase} />}
     </FirebaseContext.Consumer>
   </React.Fragment>
 );
- 
-export default Map;
+
+export default Home;
