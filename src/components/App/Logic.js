@@ -4,96 +4,94 @@ import {
     GoogleMap
 } from "react-google-maps";
 import Geocode from "react-geocode";
-import * as d3 from 'd3';
 
 Geocode.setApiKey("AIzaSyAlSsRMiiAZ_zghHBuYAgBwh1EHP_Ry86s")
 const csv = require('csv-parser')
-const NodeGeoCoder = require('node-geocoder')
-
-const options = NodeGeoCoder({
-    provider: 'google',
-    fetch: customFetchImplementation,
-    apiKey: 'AIzaSyAlSsRMiiAZ_zghHBuYAgBwh1EHP_Ry86s',
-    formatter: null
-})
-
-const geocoder = NodeGeoCoder(options);
 
 class App extends React.Component {
 
-
-    //what we ought to do here is feed the municipal data
     locations = [
         {
             name: "District 1",
             location: {
-                lat: 1.377516037369714,
-                lng: 103.6911776482776
+                lat: 1.38,
+                lng: 103.70
             },
             population: 100,
+            vaccinated: 0,
         },
         {
             name: "District 2",
             location: {
-                lat: 1.3869141413246406,
-                lng: 103.8486809126089
+                lat: 1.38,
+                lng: 103.80
             },
             population: 200,
+            vaccinated: 0,
         },
         {
             name: "District 3",
             location: {
-                lat: 1.3331135992073928, 
-                lng: 103.93673562425536
+                lat: 1.38,
+                lng: 103.90
             },
             population: 400,
+            vaccinated: 0,
         },
         {
             name: "District 4",
             location: {
-                lat: 1.3146729574530578,
-                lng: 103.87199653959685
+                lat: 1.30,
+                lng: 103.70
             },
-            population: 800,
+            population: 100,
+            vaccinated: 0,
         },
         {
             name: "District 5",
             location: {
-                lat: 1.3035365069116478,
-                lng: 103.7830446242555
+                lat: 1.30,
+                lng: 103.80
             },
             population: 700,
+            vaccinated: 0,
         },
         {
             name: "District 6",
             location: {
-                lat: 1.311685889417541,
-                lng: 103.66504491260909
+                lat: 1.30,
+                lng: 103.90
             },
-            population: 100,
+            population: 500,
+            vaccinated: 0,
         }
     ]
 
-    // input = ''
-    // output = ''
-    // updateVacData(address) {
-    //     const coords = await geocoder.geocode(address)
-    //     for (item in locations) {
+    input = ''
+    output = ''
+    updateVacData(address) {
+        Geocode.fromAddress(address).then(
+            response => {
+                const { lat, lng } = response.results[0].geometry.location; 
+
+                const a, b;
+                a = (lng - 1.30) > 0.04 ? 1 : 4
+
+                const rounded = Math.round((lat + Number.EPSILON) * 10 / 10)
+                if (rounded - 103 == 0.8) {
+                    b = a + 1
+                } else if (rounded - 103 <= 0.7) {
+                    b = a
+                } else {
+                    b = a + 2
+                }
+
+                locations[b - 1].vaccinated++
+            }
+
+          );
             
-    //     }
-
-
-    // }
-    // input.forEach(updateVacData)
-
-    // }
-
-    // ]
-
-    // }
-
-
-
+        }
 
     render() {
         return ()

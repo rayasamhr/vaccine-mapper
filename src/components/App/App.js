@@ -16,8 +16,8 @@ class App extends React.Component {
 
   state = {
     address: '',
-    zoom: 15,
-    height: 400,
+    zoom: 12,
+    height: 700,
     mapPosition: {
       lat: 0,
       lng: 0,
@@ -32,7 +32,6 @@ class App extends React.Component {
     Geocode.fromLatLng(defLat, defLng).then(
       response => {
         const address = response.results[0].formatted_address;
-        console.log(address);
 
         this.setState( {
           address: (address) ? address :"",
@@ -53,7 +52,7 @@ class App extends React.Component {
   onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat();
     let newLng = event.latLng.lng();
-
+    
     Geocode.fromLatLng(newLat, newLng)
       .then(response => {
         const address = response.results[0].formatted_address
@@ -75,7 +74,7 @@ class App extends React.Component {
   render() {
     const MapWithAMarker = withScriptjs(withGoogleMap(props =>
       <GoogleMap
-        defaultZoom={8}
+        defaultZoom={12}
         defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
       >
         <Marker
